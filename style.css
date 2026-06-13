@@ -117,7 +117,6 @@ a {
 /* PRODUCT GRID */
 .products {
   background: #FFFFFF;
-  overflow: hidden;
   padding: 32px 24px 72px;
 }
 
@@ -125,7 +124,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  overflow: visible;
+  overflow: visible hidden;
 }
 
 .product-card {
@@ -164,6 +163,16 @@ a {
     flex-direction: row;
     gap: 49px;
     width: max-content;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .product-row::-webkit-scrollbar {
+    display: none;
   }
 
   .product-card {
