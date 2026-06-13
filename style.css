@@ -24,6 +24,21 @@ a {
   background: #F7F7F4;
 }
 
+.media-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.media-image--left {
+  object-position: center;
+}
+
+.media-image--right {
+  object-position: center top;
+}
+
 /* HERO */
 .hero {
   position: relative;
@@ -182,6 +197,7 @@ a {
 .product-image {
   width: 100%;
   aspect-ratio: 3 / 5;
+  background: #F7F7F4;
 }
 
 .product-card h2 {
