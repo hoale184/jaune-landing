@@ -61,18 +61,6 @@ a {
   height: auto;
 }
 
-.hero-hotspot {
-  position: absolute;
-  left: 50%;
-  top: 72%;
-  width: 190px;
-  height: 56px;
-  transform: translateX(-50%);
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
 .section-kicker,
 .product-card h2,
 .footer p:first-child {
