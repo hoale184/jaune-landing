@@ -13,6 +13,7 @@ body {
   background: #FFFFFF;
   color: #1B1B1B;
   font-family: "Quicksand", sans-serif;
+  overflow-x: hidden;
 }
 
 a {
@@ -122,10 +123,11 @@ a {
 
 .product-row {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   overscroll-behavior-x: contain;
+  padding-bottom: 4px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -135,8 +137,8 @@ a {
 }
 
 .product-card {
-  flex: 0 0 min(72vw, 280px);
-  width: min(72vw, 280px);
+  flex: 0 0 min(calc((100vw - 52px) * 0.72), 276px);
+  width: min(calc((100vw - 52px) * 0.72), 276px);
   cursor: pointer;
 }
 
@@ -144,10 +146,17 @@ a {
   width: 100%;
   aspect-ratio: 3 / 5;
   background: #F7F7F4;
+  object-fit: contain;
+  object-position: center top;
+}
+
+.product-image.media-image {
+  height: auto;
 }
 
 .product-card h2 {
-  margin: 32px 0 0;
+  margin: 0;
+  padding-top: 32px;
   color: #1B1B1B;
   font-size: 24px;
   font-weight: 700;
@@ -172,6 +181,7 @@ a {
     gap: 49px;
     width: max-content;
     max-width: 100%;
+    padding-bottom: 4px;
   }
 
   .product-card {
@@ -183,6 +193,10 @@ a {
     width: 360px;
     height: 600px;
     aspect-ratio: auto;
+  }
+
+  .product-image.media-image {
+    height: 600px;
   }
 }
 
@@ -447,16 +461,16 @@ a {
   }
 
   .product-row {
-    gap: 20px;
+    gap: 16px;
   }
 
   .product-card {
-    flex: 0 0 min(72vw, 280px);
-    width: min(72vw, 280px);
+    flex-basis: min(calc((100vw - 52px) * 0.72), 276px);
+    width: min(calc((100vw - 52px) * 0.72), 276px);
   }
 
   .product-card h2 {
-    margin-top: 14px;
+    padding-top: 12px;
     font-size: 12px;
   }
 
