@@ -1,5 +1,6 @@
 const AIRTABLE_BASE_ID = "appJITLq25NIcJdB0";
 const AIRTABLE_TABLE_NAME = "Pre-Orders";
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const PRODUCT_ITEM_RECORDS = {
   "DORIE TOP": {
     S: "recbPoya6EEXMikXE",
@@ -71,8 +72,22 @@ module.exports = async function handler(request, response) {
   const { customerName, email, productName, size, price } = body;
   const linkedItemId = PRODUCT_ITEM_RECORDS[productName]?.[size];
 
-  if (!customerName || !email || !productName || !size) {
+  if (
+    typeof customerName !== "string" ||
+    typeof email !== "string" ||
+    typeof productName !== "string" ||
+    typeof size !== "string" ||
+    !customerName.trim() ||
+    !email.trim() ||
+    !productName.trim() ||
+    !size.trim()
+  ) {
     sendJson(response, 400, { error: "Missing or invalid preorder details" });
+    return;
+  }
+
+  if (!EMAIL_PATTERN.test(email.trim())) {
+    sendJson(response, 400, { error: "Invalid email format" });
     return;
   }
 
