@@ -59,7 +59,6 @@ module.exports = async function handler(request, response) {
       "Email": email.trim(),
       "Price": Number(price) || 0,
       "Status": "Pending",
-      "Order Submitted At": new Date().toISOString(),
       "Notes": `Interest capture — pretotype batch\nProduct: ${productName}\nSize: ${size}`
     }
   };
