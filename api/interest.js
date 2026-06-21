@@ -57,7 +57,6 @@ module.exports = async function handler(request, response) {
     fields: {
       "Customer Name": customerName.trim(),
       "Email": email.trim(),
-      "Items": `${productName} / Size ${size}`,
       "Price": Number(price) || 0,
       "Status": "Pending",
       "Order Submitted At": new Date().toISOString(),
