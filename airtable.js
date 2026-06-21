@@ -1,6 +1,7 @@
 let countdownTimer = null;
 let galleryResizeHandler = null;
 const SUBMIT_BUTTON_TEXT = "Hoàn tất";
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const OPTIMIZED_IMAGE_VERSIONS = {
   Babie_top_1: "20260621",
   Fanie_top_4: "20260621"
@@ -87,6 +88,34 @@ function formatPrice(price) {
   return `${Number(price).toLocaleString("en-US")}đ`;
 }
 
+function setEmailError(message = "") {
+  const emailField = document.getElementById("field-email");
+  const errorMessage = document.getElementById("field-email-error");
+  const hasError = Boolean(message);
+
+  emailField.setAttribute("aria-invalid", String(hasError));
+  errorMessage.textContent = message;
+  errorMessage.hidden = !hasError;
+}
+
+function validateEmailField() {
+  const emailField = document.getElementById("field-email");
+  const email = emailField.value.trim();
+
+  if (!email) {
+    setEmailError("Vui lòng nhập email.");
+    return false;
+  }
+
+  if (!EMAIL_PATTERN.test(email)) {
+    setEmailError("Email chưa đúng định dạng. Ví dụ: name@example.com");
+    return false;
+  }
+
+  setEmailError();
+  return true;
+}
+
 function getOptimizedImageSources(source) {
   const fileName = source.split("/").pop();
   const baseName = fileName.replace(/\.[^.]+$/, "");
@@ -127,6 +156,7 @@ function openNotifyModal(productName, price, selectedSize) {
   form.dataset.product = productName;
   form.dataset.price = price;
   form.reset();
+  setEmailError();
   if (selectedSize) sizeField.value = selectedSize;
   submitButton.disabled = false;
   submitButton.textContent = SUBMIT_BUTTON_TEXT;
@@ -163,6 +193,16 @@ document.getElementById("notify-modal").addEventListener("click", function (even
 
 document.getElementById("success-modal").addEventListener("click", function (event) {
   if (event.target === this) closeSuccessModal();
+});
+
+const emailField = document.getElementById("field-email");
+emailField.addEventListener("invalid", (event) => {
+  event.preventDefault();
+  validateEmailField();
+  emailField.focus();
+});
+emailField.addEventListener("input", () => {
+  if (emailField.getAttribute("aria-invalid") === "true") validateEmailField();
 });
 
 document.getElementById("notify-form").addEventListener("submit", async function (event) {

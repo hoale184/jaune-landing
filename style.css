@@ -317,6 +317,24 @@ a {
   border-color: #1B1B1B;
 }
 
+.form-group input[aria-invalid="true"] {
+  border-color: #B42318;
+  background: #FFF8F7;
+}
+
+.form-error {
+  margin: 8px 0 0;
+  color: #B42318;
+  font-family: "Quicksand", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.form-error[hidden] {
+  display: none;
+}
+
 .privacy-note {
   margin: 4px 0 0;
   color: #1B1B1B;
