@@ -1,29 +1,6 @@
 const AIRTABLE_BASE_ID = "appJITLq25NIcJdB0";
 const AIRTABLE_TABLE_NAME = "Pre-Orders";
 
-const PRODUCT_ITEM_RECORDS = {
-  "DORIE TOP": {
-    S: "recbPoya6EEXMikXE",
-    M: "rectmtMN0eM3Sepuz"
-  },
-  "FANIE TOP": {
-    S: "recmFP3FzPTbOpNWv",
-    M: "recbf0JxiiYTiJCmV"
-  },
-  "BLANIE TOP": {
-    S: "recZblJnqnNdY57kS",
-    M: "recoYCbejOJYooovH"
-  },
-  "SARIE TOP": {
-    S: "recQJabxgWGlANmAm",
-    M: "reczIpc21Oa8BNovz"
-  },
-  "BABIE TOP": {
-    S: "reca5Z6WYbOQY4fdc",
-    M: "recYPQav7g9zVPuEb"
-  }
-};
-
 function sendJson(response, statusCode, body) {
   response.statusCode = statusCode;
   response.setHeader("Content-Type", "application/json");
@@ -70,10 +47,8 @@ module.exports = async function handler(request, response) {
   }
 
   const { customerName, email, productName, size, price } = body;
-  const productRecords = PRODUCT_ITEM_RECORDS[productName];
-  const linkedItemId = productRecords?.[size];
 
-  if (!customerName || !email || !productName || !size || (productRecords && !linkedItemId)) {
+  if (!customerName || !email || !productName || !size) {
     sendJson(response, 400, { error: "Missing or invalid preorder details" });
     return;
   }
@@ -82,15 +57,13 @@ module.exports = async function handler(request, response) {
     fields: {
       "Customer Name": customerName.trim(),
       "Email": email.trim(),
+      "Items": `${productName} / Size ${size}`,
       "Price": Number(price) || 0,
       "Status": "Pending",
+      "Order Submitted At": new Date().toISOString(),
       "Notes": `Interest capture — pretotype batch\nProduct: ${productName}\nSize: ${size}`
     }
   };
-
-  if (linkedItemId) {
-    payload.fields.Items = [linkedItemId];
-  }
 
   try {
     const airtableResponse = await fetch(
