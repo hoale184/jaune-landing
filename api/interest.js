@@ -1,6 +1,6 @@
 const AIRTABLE_BASE_ID = "appJITLq25NIcJdB0";
 const AIRTABLE_TABLE_NAME = "Pre-Orders";
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const EMAIL_PATTERN = /^[A-Z0-9._%+-]+@gmail\.com(?:\.vn)?$/i;
 const PRODUCT_ITEM_RECORDS = {
   "DORIE TOP": {
     S: "recbPoya6EEXMikXE",
@@ -87,7 +87,7 @@ module.exports = async function handler(request, response) {
   }
 
   if (!EMAIL_PATTERN.test(email.trim())) {
-    sendJson(response, 400, { error: "Invalid email format" });
+    sendJson(response, 400, { error: "Email phải có đuôi @gmail.com hoặc @gmail.com.vn" });
     return;
   }
 
@@ -99,7 +99,7 @@ module.exports = async function handler(request, response) {
   const payload = {
     fields: {
       "Customer Name": customerName.trim(),
-      "Email": email.trim(),
+      "Email": email.trim().toLowerCase(),
       "Items": [linkedItemId],
       "Price": Number(price) || 0,
       "Status": "Pending",

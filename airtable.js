@@ -1,7 +1,7 @@
 let countdownTimer = null;
 let galleryResizeHandler = null;
 const SUBMIT_BUTTON_TEXT = "Hoàn tất";
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const EMAIL_PATTERN = /^[A-Z0-9._%+-]+@gmail\.com(?:\.vn)?$/i;
 const OPTIMIZED_IMAGE_VERSIONS = {
   Babie_top_1: "20260621",
   Fanie_top_4: "20260621"
@@ -103,12 +103,12 @@ function validateEmailField() {
   const email = emailField.value.trim();
 
   if (!email) {
-    setEmailError("Vui lòng nhập email.");
+    setEmailError("Vui lòng nhập email Gmail. Ví dụ: hoa@gmail.com");
     return false;
   }
 
   if (!EMAIL_PATTERN.test(email)) {
-    setEmailError("Email chưa đúng định dạng. Ví dụ: name@example.com");
+    setEmailError("Email cần kết thúc bằng @gmail.com hoặc @gmail.com.vn. Ví dụ: hoa@gmail.com");
     return false;
   }
 
@@ -196,6 +196,8 @@ document.getElementById("success-modal").addEventListener("click", function (eve
 });
 
 const emailField = document.getElementById("field-email");
+const notifyForm = document.getElementById("notify-form");
+const submitButton = document.getElementById("submit-btn");
 emailField.addEventListener("invalid", (event) => {
   event.preventDefault();
   validateEmailField();
@@ -204,12 +206,27 @@ emailField.addEventListener("invalid", (event) => {
 emailField.addEventListener("input", () => {
   if (emailField.getAttribute("aria-invalid") === "true") validateEmailField();
 });
-
-document.getElementById("notify-form").addEventListener("submit", async function (event) {
+emailField.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") return;
   event.preventDefault();
+  emailField.blur();
+});
 
-  const button = document.getElementById("submit-btn");
-  const productName = this.dataset.product;
+notifyForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+});
+
+submitButton.addEventListener("click", async function () {
+  if (!validateEmailField()) {
+    emailField.focus();
+    return;
+  }
+
+  if (!notifyForm.reportValidity()) return;
+
+  const button = submitButton;
+  const productName = notifyForm.dataset.product;
   const selectedSize = document.getElementById("field-size").value;
 
   if (window.location.protocol === "file:") {
@@ -222,10 +239,10 @@ document.getElementById("notify-form").addEventListener("submit", async function
 
   const payload = {
     customerName: document.getElementById("field-name").value.trim(),
-    email: document.getElementById("field-email").value.trim(),
+    email: emailField.value.trim().toLowerCase(),
     productName,
     size: selectedSize,
-    price: parseInt(this.dataset.price, 10)
+    price: parseInt(notifyForm.dataset.price, 10)
   };
 
   try {
