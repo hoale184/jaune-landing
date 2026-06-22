@@ -734,6 +734,81 @@ a {
     max-height: calc(100svh - 32px);
   }
 
+  #notify-modal {
+    padding: 12px;
+  }
+
+  #notify-modal .modal-box {
+    max-height: calc(100svh - 24px);
+  }
+
+  #notify-modal .modal-header {
+    padding: 20px;
+  }
+
+  #notify-modal .modal-body {
+    padding: 18px 20px 14px;
+  }
+
+  #notify-modal .modal-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
+    background: #FDFAF6;
+  }
+
+  #notify-modal .modal-close {
+    top: 18px;
+    right: 18px;
+  }
+
+  #notify-modal .modal-title {
+    padding-right: 36px;
+    font-size: 19px;
+    line-height: 1.25;
+  }
+
+  #notify-modal .modal-subtitle {
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  #notify-modal .modal-product-tag {
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+
+  #notify-modal .form-group {
+    margin-bottom: 12px;
+  }
+
+  #notify-modal .form-group input,
+  #notify-modal .form-group select {
+    min-height: 48px;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  #notify-modal .form-error {
+    margin-top: 6px;
+    font-size: 12px;
+  }
+
+  #notify-modal .privacy-note {
+    margin-top: 2px;
+    font-size: 11px;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  #notify-modal .btn-submit {
+    padding: 14px 20px;
+    font-size: 13px;
+  }
+
   .modal-header {
     padding: 32px 24px;
   }
