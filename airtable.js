@@ -1,5 +1,6 @@
 let countdownTimer = null;
 let galleryResizeHandler = null;
+const trackedProductViews = new Set();
 const SUBMIT_BUTTON_TEXT = "Hoàn tất";
 const EMAIL_PATTERN = /^[A-Z0-9._%+-]+@gmail\.com(?:\.vn)?$/i;
 const OPTIMIZED_IMAGE_VERSIONS = {
@@ -88,6 +89,32 @@ function formatPrice(price) {
   return `${Number(price).toLocaleString("en-US")}đ`;
 }
 
+function trackMetaEvent(eventName, parameters) {
+  if (typeof window.fbq !== "function") return false;
+
+  try {
+    window.fbq("track", eventName, parameters);
+    return true;
+  } catch (error) {
+    console.warn(`Meta Pixel event ${eventName} was not sent:`, error);
+    return false;
+  }
+}
+
+function trackProductView(product) {
+  if (trackedProductViews.has(product.slug)) return;
+
+  const wasTracked = trackMetaEvent("ViewContent", {
+    content_ids: [product.slug],
+    content_name: product.name,
+    content_type: "product",
+    value: product.price,
+    currency: "VND"
+  });
+
+  if (wasTracked) trackedProductViews.add(product.slug);
+}
+
 function setEmailError(message = "") {
   const emailField = document.getElementById("field-email");
   const errorMessage = document.getElementById("field-email-error");
@@ -145,7 +172,7 @@ function isStaticServerResponse(response) {
   return isLocalStaticPreview() && [404, 405, 501].includes(response.status);
 }
 
-function openNotifyModal(productName, price, selectedSize) {
+function openNotifyModal(productName, price, selectedSize, productSlug) {
   const modal = document.getElementById("notify-modal");
   const form = document.getElementById("notify-form");
   const submitButton = document.getElementById("submit-btn");
@@ -154,6 +181,8 @@ function openNotifyModal(productName, price, selectedSize) {
   modal.classList.add("active");
   document.getElementById("modal-product-name").textContent = productName;
   form.dataset.product = productName;
+  if (productSlug) form.dataset.productSlug = productSlug;
+  else delete form.dataset.productSlug;
   form.dataset.price = price;
   form.reset();
   setEmailError();
@@ -218,6 +247,8 @@ notifyForm.addEventListener("submit", (event) => {
 });
 
 submitButton.addEventListener("click", async function () {
+  if (submitButton.disabled) return;
+
   if (!validateEmailField()) {
     emailField.focus();
     return;
@@ -227,6 +258,7 @@ submitButton.addEventListener("click", async function () {
 
   const button = submitButton;
   const productName = notifyForm.dataset.product;
+  const productSlug = notifyForm.dataset.productSlug;
   const selectedSize = document.getElementById("field-size").value;
 
   if (window.location.protocol === "file:") {
@@ -255,6 +287,16 @@ submitButton.addEventListener("click", async function () {
     });
 
     if (response.ok) {
+      if (productSlug) {
+        trackMetaEvent("Lead", {
+          content_ids: [productSlug],
+          content_name: productName,
+          content_type: "product",
+          value: payload.price,
+          currency: "VND",
+          size: selectedSize
+        });
+      }
       openSuccessModal();
     } else if (isStaticServerResponse(response)) {
       throw new Error("Local static preview does not run /api/interest, so this test was not saved to Airtable. Test on Vercel production or with Vercel dev.");
@@ -290,6 +332,7 @@ function renderProductDetail() {
   document.getElementById("detail-name").textContent = product.name;
   document.getElementById("detail-price").textContent = formatPrice(product.price);
   document.getElementById("detail-description").textContent = product.description;
+  trackProductView(product);
 
   const gallery = document.getElementById("detail-gallery");
   gallery.dataset.product = product.slug;
@@ -383,7 +426,7 @@ function renderProductDetail() {
   });
 
   document.getElementById("detail-cta").onclick = () => {
-    openNotifyModal(product.name, product.price, selectedSize);
+    openNotifyModal(product.name, product.price, selectedSize, product.slug);
   };
 }
 
