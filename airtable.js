@@ -1,8 +1,14 @@
 let countdownTimer = null;
 let galleryResizeHandler = null;
+let interestQueueProcessing = false;
+let interestQueueTimer = null;
 const trackedProductViews = new Set();
 const SUBMIT_BUTTON_TEXT = "Hoàn tất";
 const EMAIL_PATTERN = /^[A-Z0-9._%+-]+@gmail\.com(?:\.vn)?$/i;
+const INTEREST_QUEUE_STORAGE_KEY = "jaune-interest-queue-v1";
+const INTEREST_QUEUE_MAX_ITEMS = 50;
+const INTEREST_QUEUE_BASE_DELAY_MS = 5000;
+const INTEREST_QUEUE_MAX_DELAY_MS = 5 * 60 * 1000;
 const OPTIMIZED_IMAGE_VERSIONS = {
   Babie_top_1: "20260621",
   Fanie_top_4: "20260621"
@@ -155,12 +161,13 @@ function getOptimizedImageSources(source) {
   };
 }
 
-async function getSubmitError(response) {
+async function getSubmitResult(response) {
   try {
-    const data = await response.json();
-    return data.error || `Server returned ${response.status}`;
+    return await response.json();
   } catch {
-    return `Server returned ${response.status}`;
+    return {
+      error: `Server returned ${response.status}`
+    };
   }
 }
 
@@ -170,6 +177,198 @@ function isLocalStaticPreview() {
 
 function isStaticServerResponse(response) {
   return isLocalStaticPreview() && [404, 405, 501].includes(response.status);
+}
+
+function canSyncInterestQueue() {
+  return window.location.protocol !== "file:" && navigator.onLine !== false;
+}
+
+function createClientSubmissionId() {
+  if (window.crypto && typeof window.crypto.randomUUID === "function") {
+    return window.crypto.randomUUID();
+  }
+
+  return `jaune-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
+function readInterestQueue() {
+  try {
+    const rawQueue = window.localStorage.getItem(INTEREST_QUEUE_STORAGE_KEY);
+    const queue = rawQueue ? JSON.parse(rawQueue) : [];
+    if (!Array.isArray(queue)) return [];
+
+    return queue.filter((item) => {
+      return item && typeof item.id === "string" && item.payload && typeof item.payload === "object";
+    });
+  } catch (error) {
+    console.warn("Unable to read interest queue:", error);
+    return [];
+  }
+}
+
+function writeInterestQueue(queue) {
+  try {
+    const nextQueue = queue.slice(-INTEREST_QUEUE_MAX_ITEMS);
+    window.localStorage.setItem(INTEREST_QUEUE_STORAGE_KEY, JSON.stringify(nextQueue));
+  } catch (error) {
+    console.warn("Unable to save interest queue:", error);
+  }
+}
+
+function updateInterestQueueItem(itemId, updates) {
+  const queue = readInterestQueue();
+  const index = queue.findIndex((item) => item.id === itemId);
+  if (index === -1) return;
+
+  queue[index] = {
+    ...queue[index],
+    ...(typeof updates === "function" ? updates(queue[index]) : updates)
+  };
+  writeInterestQueue(queue);
+}
+
+function removeInterestQueueItem(itemId) {
+  writeInterestQueue(readInterestQueue().filter((item) => item.id !== itemId));
+}
+
+function getQueueRetryDelay(attempts) {
+  const exponent = Math.min(Math.max(attempts, 0), 6);
+  const delay = INTEREST_QUEUE_BASE_DELAY_MS * 2 ** exponent;
+  const jitter = Math.floor(Math.random() * 1000);
+
+  return Math.min(delay + jitter, INTEREST_QUEUE_MAX_DELAY_MS);
+}
+
+function getNextQueueDelay(queue) {
+  const now = Date.now();
+  const nextRetryAt = queue.reduce((nextTime, item) => {
+    if (!item.nextRetryAt) return now;
+    return Math.min(nextTime, item.nextRetryAt);
+  }, Number.POSITIVE_INFINITY);
+
+  if (!Number.isFinite(nextRetryAt)) return INTEREST_QUEUE_BASE_DELAY_MS;
+
+  return Math.max(nextRetryAt - now, 1000);
+}
+
+function scheduleInterestQueue(delay = 1000) {
+  clearTimeout(interestQueueTimer);
+
+  if (!canSyncInterestQueue()) return;
+
+  interestQueueTimer = setTimeout(() => {
+    processInterestQueue();
+  }, Math.max(delay, 1000));
+}
+
+function trackQueuedLead(item) {
+  const meta = item.meta || {};
+  if (!meta.productSlug) return;
+
+  trackMetaEvent("Lead", {
+    content_ids: [meta.productSlug],
+    content_name: meta.productName,
+    content_type: "product",
+    value: meta.price,
+    currency: "VND",
+    size: meta.size
+  });
+}
+
+function enqueueInterestSubmission(payload, meta) {
+  const item = {
+    id: createClientSubmissionId(),
+    payload,
+    meta,
+    attempts: 0,
+    createdAt: Date.now(),
+    nextRetryAt: 0,
+    lastError: ""
+  };
+
+  writeInterestQueue([...readInterestQueue(), item]);
+  scheduleInterestQueue();
+
+  return item;
+}
+
+function rescheduleInterestItem(item, errorMessage = "", retryable = true) {
+  const attempts = Number(item.attempts || 0) + 1;
+  const retryDelay = retryable ? getQueueRetryDelay(attempts) : INTEREST_QUEUE_MAX_DELAY_MS;
+
+  updateInterestQueueItem(item.id, {
+    attempts,
+    lastError: errorMessage,
+    nextRetryAt: Date.now() + retryDelay,
+    updatedAt: Date.now()
+  });
+}
+
+async function submitQueuedInterestItem(item) {
+  const response = await fetch("/api/interest", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      ...item.payload,
+      clientSubmissionId: item.id
+    })
+  });
+
+  if (response.ok) {
+    trackQueuedLead(item);
+    removeInterestQueueItem(item.id);
+    return true;
+  }
+
+  const result = await getSubmitResult(response);
+  const retryable =
+    result.retryable === true ||
+    isStaticServerResponse(response) ||
+    response.status === 429 ||
+    response.status >= 500;
+
+  rescheduleInterestItem(item, result.error || `Server returned ${response.status}`, retryable);
+
+  if (!retryable) {
+    console.warn("Interest submission is queued but blocked by a non-retryable response:", result);
+  }
+
+  return false;
+}
+
+async function processInterestQueue() {
+  if (interestQueueProcessing || !canSyncInterestQueue()) return;
+
+  const queue = readInterestQueue();
+  if (!queue.length) return;
+
+  interestQueueProcessing = true;
+
+  try {
+    const now = Date.now();
+
+    for (const item of queue) {
+      if (item.nextRetryAt && item.nextRetryAt > now) continue;
+
+      const wasSubmitted = await submitQueuedInterestItem(item);
+      if (!wasSubmitted) break;
+    }
+  } catch (error) {
+    const nextItem = readInterestQueue().find((item) => !item.nextRetryAt || item.nextRetryAt <= Date.now());
+    if (nextItem) {
+      rescheduleInterestItem(nextItem, error.message || "Network request failed");
+    }
+    console.warn("Interest queue will retry later:", error);
+  } finally {
+    interestQueueProcessing = false;
+
+    const remainingQueue = readInterestQueue();
+    if (remainingQueue.length) {
+      scheduleInterestQueue(getNextQueueDelay(remainingQueue));
+    }
+  }
 }
 
 function openNotifyModal(productName, price, selectedSize, productSlug) {
@@ -246,7 +445,7 @@ notifyForm.addEventListener("submit", (event) => {
   if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
 });
 
-submitButton.addEventListener("click", async function () {
+submitButton.addEventListener("click", function () {
   if (submitButton.disabled) return;
 
   if (!validateEmailField()) {
@@ -261,11 +460,6 @@ submitButton.addEventListener("click", async function () {
   const productSlug = notifyForm.dataset.productSlug;
   const selectedSize = document.getElementById("field-size").value;
 
-  if (window.location.protocol === "file:") {
-    alert("Form cần chạy trên Vercel production để gửi dữ liệu. Bản file local chỉ dùng để xem UI.");
-    return;
-  }
-
   button.disabled = true;
   button.textContent = "Đang gửi...";
 
@@ -277,40 +471,14 @@ submitButton.addEventListener("click", async function () {
     price: parseInt(notifyForm.dataset.price, 10)
   };
 
-  try {
-    const response = await fetch("/api/interest", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (response.ok) {
-      if (productSlug) {
-        trackMetaEvent("Lead", {
-          content_ids: [productSlug],
-          content_name: productName,
-          content_type: "product",
-          value: payload.price,
-          currency: "VND",
-          size: selectedSize
-        });
-      }
-      openSuccessModal();
-    } else if (isStaticServerResponse(response)) {
-      throw new Error("Local static preview does not run /api/interest, so this test was not saved to Airtable. Test on Vercel production or with Vercel dev.");
-    } else {
-      throw new Error(await getSubmitError(response));
-    }
-  } catch (error) {
-    console.error("Interest submit failed:", error);
-    button.disabled = false;
-    button.textContent = SUBMIT_BUTTON_TEXT;
-    setTimeout(() => {
-      alert(`Có lỗi xảy ra. Vui lòng thử lại nhé!\n\n${error.message}`);
-    }, 0);
-  }
+  enqueueInterestSubmission(payload, {
+    productSlug,
+    productName,
+    size: selectedSize,
+    price: payload.price
+  });
+  openSuccessModal();
+  processInterestQueue();
 });
 
 window.openNotifyModal = openNotifyModal;
@@ -431,7 +599,13 @@ function renderProductDetail() {
 }
 
 renderProductDetail();
+processInterestQueue();
+window.addEventListener("online", processInterestQueue);
+window.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") processInterestQueue();
+});
 window.addEventListener("pageshow", (event) => {
   if (event.persisted) renderProductDetail();
+  processInterestQueue();
 });
 window.addEventListener("popstate", renderProductDetail);
