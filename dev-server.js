@@ -43,7 +43,7 @@ function send(response, statusCode, body, contentType = "text/plain; charset=utf
 
 function getStaticPath(urlPath) {
   const pathname = decodeURIComponent(urlPath.split("?")[0]);
-  const normalizedPath = pathname === "/" ? "/index.html" : pathname;
+  const normalizedPath = pathname.endsWith("/") ? `${pathname}index.html` : pathname;
   const filePath = path.normalize(path.join(ROOT, normalizedPath));
 
   if (!filePath.startsWith(ROOT)) return null;

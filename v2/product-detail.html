@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAUNE | Product Detail (v2 preview)</title>
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1037757002113464');
+      fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Quicksand:wght@400;500&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Quicksand:wght@400;500&display=swap"></noscript>
+    <script>
+      (() => {
+        const product = new URLSearchParams(window.location.search).get("product") || "dorie";
+        const firstImages = {
+          dorie: "Dorie_top_1",
+          fanie: "Fanie_top_1",
+          blanie: "Blanie_top_1",
+          sarie: "Sarie_top_1",
+          babie: "Babie_top_1-20260621"
+        };
+        const imageName = firstImages[product] || firstImages.dorie;
+        const preload = document.createElement("link");
+        preload.rel = "preload";
+        preload.as = "image";
+        preload.href = `../images/optimized/${imageName}-960.webp`;
+        preload.setAttribute("imagesrcset", `../images/optimized/${imageName}-960.webp 960w, ../images/optimized/${imageName}-1440.webp 1440w`);
+        preload.setAttribute("imagesizes", "(max-width: 767px) calc(100vw - 48px), 680px");
+        preload.setAttribute("fetchpriority", "high");
+        document.head.appendChild(preload);
+      })();
+    </script>
+    <link rel="stylesheet" href="style.css?v=20260621-2">
+  </head>
+  <body id="product-detail-page">
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1037757002113464&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
+    <header class="detail-header" aria-label="Product detail navigation">
+      <a class="detail-back" href="index.html?preview=20260621-2#products" aria-label="Quay lại danh sách sản phẩm">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 18 9 12l6-6"/>
+        </svg>
+        Sản phẩm
+      </a>
+      <a class="detail-brand" href="index.html?preview=20260621-2" aria-label="JAUNE home">JAUNE</a>
+    </header>
+
+    <main class="detail-wrap">
+      <section id="detail-gallery" class="detail-gallery" aria-label="Product photos"></section>
+
+      <section class="detail-info" aria-labelledby="detail-name">
+        <p class="detail-kicker">Casual Line — Drop 02</p>
+        <h1 id="detail-name" class="detail-name"></h1>
+        <p id="detail-price" class="detail-price"></p>
+        <hr class="detail-divider">
+        <p id="detail-description" class="detail-description"></p>
+
+        <p class="detail-size-label">Chọn size</p>
+        <div id="detail-sizes" class="detail-sizes" aria-label="Chọn size"></div>
+
+        <div class="detail-badge">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 2"/>
+          </svg>
+          Sắp ra mắt
+        </div>
+
+        <button id="detail-cta" class="detail-cta" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          Nhận thông báo khi có hàng
+        </button>
+      </section>
+    </main>
+
+    <!-- INTEREST FORM MODAL -->
+    <div id="notify-modal" class="modal-overlay">
+      <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="notify-modal-title">
+        <div class="modal-header">
+          <h2 id="notify-modal-title" class="modal-title">Nhận thông báo mở bán</h2>
+          <button class="modal-close" type="button" onclick="closeNotifyModal()" aria-label="Đóng">✕</button>
+        </div>
+
+        <form id="notify-form">
+          <div class="modal-body">
+            <p class="modal-subtitle">Nhập thông tin để nhận thông báo ngay khi có hàng bạn nhé!</p>
+            <div class="modal-product-tag" id="modal-product-name"></div>
+
+            <div class="form-group">
+              <select id="field-size" required>
+                <option value="">Chọn size</option>
+                <option value="S">Size S — V1 &lt;86, V2 &lt;70</option>
+                <option value="M">Size M — V1 &lt;90, V2 &lt;75</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="field-name" required placeholder="Tên của bạn *">
+            </div>
+
+            <div class="form-group">
+              <input type="email" id="field-email" required inputmode="email" enterkeyhint="done" autocomplete="email" pattern="^[A-Za-z0-9._%+-]+@gmail\.com(\.vn)?$" title="Email cần kết thúc bằng @gmail.com hoặc @gmail.com.vn" aria-describedby="field-email-error" aria-invalid="false" placeholder="Email *">
+              <p id="field-email-error" class="form-error" role="alert" hidden></p>
+            </div>
+
+            <p class="privacy-note">Jaune cam kết sẽ không chia sẻ thông tin của bạn</p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn-submit" id="submit-btn">Hoàn tất</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- SUCCESS CONFIRMATION MODAL -->
+    <div id="success-modal" class="modal-overlay">
+      <div class="modal-box modal-box--success" role="dialog" aria-modal="true" aria-labelledby="success-modal-title">
+        <button class="modal-close" type="button" onclick="closeSuccessModal()" aria-label="Đóng">✕</button>
+        <p class="success-icon">✦</p>
+        <h2 id="success-modal-title" class="modal-title">Đăng ký nhận thông báo thành công!</h2>
+        <p class="modal-subtitle">
+          Cảm ơn nàng đã kiên nhẫn chờ đợi Effortless Basics. Khi nào BST chính thức mở bán, tụi mình sẽ nhắn nàng
+          đầu tiên để không bỏ lỡ item chân ái này nha.
+        </p>
+        <div class="countdown-bar">
+          <div class="countdown-fill" id="countdown-fill"></div>
+        </div>
+        <button class="btn-submit" type="button" onclick="closeSuccessModal()">TIẾP TỤC TRẢI NGHIỆM</button>
+      </div>
+    </div>
+
+    <script src="airtable.js?v=20260625-1"></script>
+  </body>
+</html>
