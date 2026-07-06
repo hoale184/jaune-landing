@@ -391,7 +391,8 @@ function openNotifyModal(productName, price, selectedSize, productSlug) {
 }
 
 function closeNotifyModal() {
-  document.getElementById("notify-modal").classList.remove("active");
+  const modal = document.getElementById("notify-modal");
+  if (modal) modal.classList.remove("active");
 }
 
 function openSuccessModal() {

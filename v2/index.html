@@ -20,12 +20,12 @@
     <!-- End Meta Pixel Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&family=Lavishly+Yours&family=Lora:wght@500&family=Montserrat:wght@400;600;700&family=Quicksand:wght@400;500&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&family=Lavishly+Yours&family=Lora:wght@500&family=Montserrat:wght@400;600;700&family=Quicksand:wght@400;500&display=swap"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&family=Lavishly+Yours&family=Lora:wght@500&family=Montserrat:wght@400;600;700&family=Public+Sans:wght@700&family=Quicksand:wght@400;500&family=Work+Sans:wght@600&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&family=Lavishly+Yours&family=Lora:wght@500&family=Montserrat:wght@400;600;700&family=Public+Sans:wght@700&family=Quicksand:wght@400;500&family=Work+Sans:wght@600&display=swap"></noscript>
     <!-- Clash Display is not on Google Fonts — served via Fontshare for this v2 preview -->
     <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@600&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@600&display=swap"></noscript>
-    <link rel="stylesheet" href="style.css?v=20260705-1">
+    <link rel="stylesheet" href="style.css?v=20260706-1">
   </head>
   <body>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1037757002113464&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
@@ -129,18 +129,18 @@
           </p>
         </div>
 
-        <div class="v2-notify-form">
+        <form class="v2-notify-form" id="notify-form">
           <p class="v2-notify-form-label">Nhập thông tin</p>
 
           <div class="v2-notify-field">
-            <input type="text" id="v2-field-name" placeholder="Họ tên">
+            <input type="text" id="field-name" required placeholder="Họ tên">
           </div>
 
           <div class="v2-notify-field">
-            <input type="email" id="v2-field-email" placeholder="Email">
+            <input type="email" id="field-email" required inputmode="email" enterkeyhint="done" autocomplete="email" pattern="^[A-Za-z0-9._%+-]+@gmail\.com(\.vn)?$" title="Email cần kết thúc bằng @gmail.com hoặc @gmail.com.vn" aria-describedby="field-email-error" aria-invalid="false" placeholder="Email">
+            <p id="field-email-error" class="v2-notify-error" role="alert" hidden></p>
           </div>
 
-          <!-- TODO(build sau): mở popup chọn item + size khi bấm vào đây -->
           <button type="button" class="v2-notify-field v2-notify-select" id="v2-field-item-trigger" aria-haspopup="dialog">
             <span id="v2-field-item-label">Chọn item</span>
             <svg class="v2-notify-select-chevron" viewBox="0 0 24 24" aria-hidden="true">
@@ -148,12 +148,66 @@
             </svg>
           </button>
 
-          <button type="button" class="v2-notify-submit" id="v2-notify-submit">Hoàn tất</button>
+          <button type="button" class="v2-notify-submit" id="submit-btn" disabled>Hoàn tất</button>
 
           <p class="v2-notify-privacy">JAUNE cam kết sẽ không chia sẻ thông tin của bạn</p>
-        </div>
+        </form>
       </section>
     </main>
+
+    <!-- ITEM + SIZE POPUP -->
+    <div class="v2-modal-overlay" id="item-modal">
+      <div class="v2-modal-box" role="dialog" aria-modal="true" aria-labelledby="item-modal-title">
+        <div class="v2-modal-header">
+          <h2 id="item-modal-title" class="v2-modal-title">Chọn item nàng muốn nhận thông báo</h2>
+          <button type="button" class="v2-modal-close" id="item-modal-close" aria-label="Đóng">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+          </button>
+        </div>
+        <hr class="v2-modal-divider">
+        <div class="v2-modal-body">
+          <img class="v2-modal-image" src="https://placehold.co/322x434" alt="Ảnh sản phẩm placeholder">
+          <div class="v2-modal-fields">
+            <div class="v2-modal-select-wrap">
+              <select class="v2-modal-select" id="item-modal-product">
+                <option value="dorie">DORIE TOP</option>
+                <option value="fanie">FANIE TOP</option>
+                <option value="blanie">BLANIE TOP</option>
+                <option value="sarie">SARIE TOP</option>
+                <option value="babie">BABIE TOP</option>
+              </select>
+            </div>
+            <div class="v2-modal-select-wrap">
+              <select class="v2-modal-select" id="field-size">
+                <option value="S">Size S — V1 &lt;86, V2 &lt;70</option>
+                <option value="M">Size M — V1 &lt;90, V2 &lt;75</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <hr class="v2-modal-divider">
+        <div class="v2-modal-footer">
+          <button type="button" class="v2-modal-confirm" id="item-modal-confirm">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUCCESS CONFIRMATION MODAL -->
+    <div id="success-modal" class="modal-overlay">
+      <div class="modal-box modal-box--success" role="dialog" aria-modal="true" aria-labelledby="success-modal-title">
+        <button class="modal-close" type="button" onclick="closeSuccessModal()" aria-label="Đóng">✕</button>
+        <p class="success-icon">✦</p>
+        <h2 id="success-modal-title" class="modal-title">Đăng ký nhận thông báo thành công!</h2>
+        <p class="modal-subtitle">
+          Cảm ơn nàng đã kiên nhẫn chờ đợi Effortless Basics. Khi nào BST chính thức mở bán, tụi mình sẽ nhắn nàng
+          đầu tiên để không bỏ lỡ item chân ái này nha.
+        </p>
+        <div class="countdown-bar">
+          <div class="countdown-fill" id="countdown-fill"></div>
+        </div>
+        <button class="btn-submit" type="button" onclick="closeSuccessModal()">TIẾP TỤC TRẢI NGHIỆM</button>
+      </div>
+    </div>
 
     <!-- FOOTER -->
     <footer class="v2-footer">
@@ -169,6 +223,46 @@
       <p class="v2-footer-copyright">© 2026 Jaune All rights served</p>
     </footer>
 
-    <script src="airtable.js?v=20260705-1"></script>
+    <script src="airtable.js?v=20260706-1"></script>
+    <script>
+      (() => {
+        const itemModal = document.getElementById("item-modal");
+        const itemTrigger = document.getElementById("v2-field-item-trigger");
+        const itemTriggerLabel = document.getElementById("v2-field-item-label");
+        const itemProductSelect = document.getElementById("item-modal-product");
+        const itemSizeSelect = document.getElementById("field-size");
+        const itemConfirmButton = document.getElementById("item-modal-confirm");
+        const itemCloseButton = document.getElementById("item-modal-close");
+        const notifyForm = document.getElementById("notify-form");
+        const submitButton = document.getElementById("submit-btn");
+
+        function openItemModal() {
+          itemModal.classList.add("active");
+        }
+
+        function closeItemModal() {
+          itemModal.classList.remove("active");
+        }
+
+        itemTrigger.addEventListener("click", openItemModal);
+        itemCloseButton.addEventListener("click", closeItemModal);
+        itemModal.addEventListener("click", (event) => {
+          if (event.target === itemModal) closeItemModal();
+        });
+
+        itemConfirmButton.addEventListener("click", () => {
+          const product = (window.JAUNE_PRODUCTS || {})[itemProductSelect.value];
+          if (!product) return;
+
+          notifyForm.dataset.product = product.name;
+          notifyForm.dataset.productSlug = product.slug;
+          notifyForm.dataset.price = product.price;
+
+          itemTriggerLabel.textContent = `${product.name} · Size ${itemSizeSelect.value}`;
+          submitButton.disabled = false;
+          closeItemModal();
+        });
+      })();
+    </script>
   </body>
 </html>
