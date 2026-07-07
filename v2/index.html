@@ -20,12 +20,12 @@
     <!-- End Meta Pixel Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&family=Lavishly+Yours&family=Lora:wght@500&family=Montserrat:wght@400;600;700&family=Public+Sans:wght@700&family=Quicksand:wght@400;500&family=Work+Sans:wght@600&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&family=Lavishly+Yours&family=Lora:wght@500&family=Montserrat:wght@400;600;700&family=Public+Sans:wght@700&family=Quicksand:wght@400;500&family=Work+Sans:wght@600&display=swap"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&family=Lora:wght@500&family=Montserrat:wght@400;600;700&family=Public+Sans:wght@700&family=Quicksand:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lavishly+Yours&family=Lora:wght@500&family=Montserrat:wght@400;600;700&family=Public+Sans:wght@700&family=Quicksand:wght@400;500;600;700&display=swap"></noscript>
     <!-- Clash Display is not on Google Fonts — served via Fontshare for this v2 preview -->
     <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@600&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@600&display=swap"></noscript>
-    <link rel="stylesheet" href="style.css?v=20260706-1">
+    <link rel="stylesheet" href="style.css?v=20260706-2">
   </head>
   <body>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1037757002113464&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
@@ -213,17 +213,17 @@
     <footer class="v2-footer">
       <p class="v2-footer-heading">Follow JAUNE on</p>
       <div class="v2-footer-social">
-        <a class="v2-footer-icon" href="#" aria-label="JAUNE trên Facebook">
+        <a class="v2-footer-icon" href="https://web.facebook.com/profile.php?id=61591147861357" target="_blank" rel="noopener noreferrer" aria-label="JAUNE trên Facebook">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8.5h2V5.5h-2c-1.93 0-3.5 1.57-3.5 3.5v2H9.5v3H11.5v7.5h3V14h2.13l.37-3H14.5v-2c0-.28.22-.5.5-.5Z"/></svg>
         </a>
-        <a class="v2-footer-icon" href="#" aria-label="JAUNE trên Instagram">
+        <a class="v2-footer-icon" href="https://www.instagram.com/jaune.for.girl/" target="_blank" rel="noopener noreferrer" aria-label="JAUNE trên Instagram">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.75" y="3.75" width="16.5" height="16.5" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16.35" cy="7.65" r="1.05"/></svg>
         </a>
       </div>
       <p class="v2-footer-copyright">© 2026 Jaune All rights served</p>
     </footer>
 
-    <script src="airtable.js?v=20260706-1"></script>
+    <script src="airtable.js?v=20260706-2"></script>
     <script>
       (() => {
         const itemModal = document.getElementById("item-modal");
@@ -259,6 +259,7 @@
           notifyForm.dataset.price = product.price;
 
           itemTriggerLabel.textContent = `${product.name} · Size ${itemSizeSelect.value}`;
+          itemTrigger.classList.add("has-value");
           submitButton.disabled = false;
           closeItemModal();
         });

@@ -1,18 +1,20 @@
-/* V2 PALETTE — edit these to restyle the whole page, everything below reads from them */
+/* V2 PALETTE — edit these to restyle the whole page, everything below reads from them.
+   Recolored to match the landing v2 palette: black stays black, brown/tan becomes pink,
+   beige/cream becomes the same light beige used on the v2 homepage. */
 :root {
   --color-bg: #FFFFFF;
-  --color-surface: #F7F7F4;
+  --color-surface: #F6F6F6;
   --color-surface-alt: #DCDDD6;
-  --color-text: #1B1B1B;
-  --color-text-muted: #374151;
-  --color-text-subtle: #8A7E72;
-  --color-cream: #FDFAF6;
-  --color-border: #E8E2D9;
-  --color-border-strong: #C8B8A2;
+  --color-text: #070D0D;
+  --color-text-muted: #070D0D;
+  --color-text-subtle: #D56F8C;
+  --color-cream: #F6F6F6;
+  --color-border: #F8F4F1;
+  --color-border-strong: #D56F8C;
   --color-error: #B42318;
   --color-error-bg: #FFF8F7;
-  --color-dark: #1A1A1A;
-  --color-dark-hover: #343434;
+  --color-dark: #070D0D;
+  --color-dark-hover: #1B2224;
   --color-muted-2: #6A6A6A;
 }
 
@@ -272,7 +274,7 @@ a {
   border: 1px solid var(--color-text);
   color: var(--color-text);
   cursor: pointer;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 14px;
   line-height: 1;
 }
@@ -302,7 +304,7 @@ a {
   background: var(--color-surface);
   color: var(--color-text);
   padding: 18px 20px;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 1.3;
@@ -369,7 +371,7 @@ a {
   color: var(--color-cream);
   padding: 18px 24px;
   cursor: pointer;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 17px;
   font-weight: 700;
   letter-spacing: 0.03em;
@@ -557,7 +559,7 @@ a {
 .detail-kicker {
   margin: 0 0 12px;
   color: var(--color-text-subtle);
-  font-family: "Futura", "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.22em;
@@ -579,7 +581,7 @@ a {
 .detail-price {
   margin: 16px 0 0;
   color: var(--color-text-muted);
-  font-family: "Futura", "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 18px;
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -604,7 +606,7 @@ a {
 .detail-size-label {
   margin: 0 0 14px;
   color: var(--color-text-subtle);
-  font-family: "Futura", "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -628,7 +630,7 @@ a {
   background: var(--color-bg);
   color: var(--color-text);
   cursor: pointer;
-  font-family: "Futura", "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -655,7 +657,7 @@ a {
   padding: 14px 18px;
   background: var(--color-surface);
   color: var(--color-text-subtle);
-  font-family: "Futura", "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -686,7 +688,7 @@ a {
   background: var(--color-dark);
   color: var(--color-cream);
   cursor: pointer;
-  font-family: "Futura", "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -1012,7 +1014,7 @@ a {
 .v2-ticker-item {
   flex: 0 0 auto;
   color: var(--v2-pink-muted);
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.22em;
@@ -1092,7 +1094,7 @@ a {
   max-width: 420px;
   color: var(--v2-cream);
   opacity: 0.82;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 18px;
   font-weight: 500;
   line-height: 1.6;
@@ -1108,7 +1110,7 @@ a {
   outline: 3px solid #B79AA2;
   outline-offset: -3px;
   color: var(--v2-dark);
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
@@ -1158,7 +1160,7 @@ a {
 .v2-collection-kicker {
   margin: 0 0 16px;
   color: var(--v2-pink-text);
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.3em;
@@ -1167,10 +1169,10 @@ a {
 
 .v2-collection-text {
   margin: 0 0 32px;
-  max-width: 900px;
+  max-width: 1200px;
   color: var(--v2-dark);
   opacity: 0.82;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
@@ -1230,7 +1232,7 @@ a {
   background: var(--v2-dark);
   border-radius: 30px;
   color: var(--v2-card-border);
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 10px;
   font-weight: 400;
   text-transform: uppercase;
@@ -1260,7 +1262,7 @@ a {
   display: block;
   margin-top: -2px;
   color: var(--v2-dark);
-  font-family: "Montserrat", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.04em;
@@ -1287,7 +1289,7 @@ a {
   max-width: 560px;
   color: var(--v2-dark);
   opacity: 0.82;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
@@ -1302,7 +1304,7 @@ a {
   margin: 0 0 16px;
   color: var(--v2-dark);
   opacity: 0.82;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 18px;
 }
 
@@ -1318,7 +1320,7 @@ a {
   border-radius: 40px;
   background: transparent;
   color: var(--v2-dark);
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 14px;
   outline: none;
 }
@@ -1339,8 +1341,12 @@ a {
   background: transparent;
   color: var(--v2-input-placeholder);
   cursor: pointer;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 14px;
+}
+
+.v2-notify-select.has-value {
+  color: var(--v2-dark);
 }
 
 .v2-notify-select-chevron {
@@ -1363,7 +1369,7 @@ a {
   background: var(--v2-dark);
   color: #F8F4F1;
   cursor: pointer;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
@@ -1374,7 +1380,7 @@ a {
   margin: 16px 0 0;
   color: var(--v2-dark);
   opacity: 0.6;
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 12px;
   font-style: italic;
 }
@@ -1479,7 +1485,7 @@ a {
 .v2-notify-error {
   margin: 8px 0 0;
   color: var(--color-error);
-  font-family: "Be Vietnam Pro", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 13px;
   font-weight: 500;
   line-height: 1.4;
@@ -1609,7 +1615,7 @@ a {
   border-radius: 8px;
   background: #FAFAFA;
   color: #151515;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 15px;
   font-weight: 600;
 }
@@ -1628,7 +1634,7 @@ a {
   background: #5F65F6;
   color: white;
   cursor: pointer;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 16px;
   font-weight: 600;
 }
