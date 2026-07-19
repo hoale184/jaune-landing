@@ -1197,6 +1197,10 @@ a {
     display: contents;
   }
 
+  .v2-hero-media {
+    margin-top: 0;
+  }
+
   .v2-hero-cta {
     order: 1;
     margin-top: 32px;
