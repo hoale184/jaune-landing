@@ -9,90 +9,138 @@ const INTEREST_QUEUE_STORAGE_KEY = "jaune-interest-queue-v1";
 const INTEREST_QUEUE_MAX_ITEMS = 50;
 const INTEREST_QUEUE_BASE_DELAY_MS = 5000;
 const INTEREST_QUEUE_MAX_DELAY_MS = 5 * 60 * 1000;
-const OPTIMIZED_IMAGE_VERSIONS = {
-  Babie_top_1: "20260621",
-  Fanie_top_4: "20260621"
-};
+const OPTIMIZED_IMAGE_VERSIONS = {};
 const JAUNE_PRODUCTS = {
-  dorie: {
-    slug: "dorie",
-    name: "DORIE TOP",
-    price: 310000,
+  blanie: {
+    slug: "blanie",
+    name: "BLANIE TOP",
+    price: 230000,
     description:
-      "Áo thun dài tay basic với đường cổ rộng vừa phải, thiết kế để layer ngoài áo hai dây Sarie hoặc mặc đơn đều đẹp. Chất thun mềm, co dãn thoải mái. Thiết kế nhét mút rời dễ mặc, hai lớp để tạo form chuẩn.",
+      "Dịu dàng trong từng đường cắt. Cổ thuyền trải nhẹ qua bờ vai, tạo cảm giác thanh thoát và nữ tính với phom ôm gọn tự nhiên.",
     images: [
-      "../images/Dorie_top_1.png",
-      "../images/Dorie_top_2.png",
-      "../images/Dorie_top_3.png",
-      "../images/Dorie_top_4.png"
+      "images/Blanie/Blanie_1.png",
+      "images/Blanie/Blanie_2.png",
+      "images/Blanie/Blanie_3.png",
+      "images/Blanie/Blanie_4.png",
+      "images/Blanie/Blanie_5.png",
+      "images/Blanie/Blanie_6.png"
     ],
     pairIndexes: [0, 1],
     sizes: ["S", "M"]
   },
-  fanie: {
-    slug: "fanie",
-    name: "FANIE TOP",
+  ellie: {
+    slug: "ellie",
+    name: "ELLIE TOP",
+    price: 220000,
+    description:
+      "Đơn giản nhưng luôn để lại ấn tượng. Đường cắt gọn mở nhẹ phần vai, kết hợp chất thun ôm vừa đủ để tôn dáng tự nhiên, khỏe khoắn mà vẫn đầy nữ tính.",
+    images: [
+      "images/Ellie/Ellie_1.png",
+      "images/Ellie/Ellie_2.png",
+      "images/Ellie/Ellie_3.png",
+      "images/Ellie/Ellie_4.png",
+      "images/Ellie/Ellie_5.png",
+      "images/Ellie/Ellie_6.png",
+      "images/Ellie/Ellie_7.png"
+    ],
+    pairIndexes: [0, 1],
+    sizes: ["S", "M"]
+  },
+  elsie: {
+    slug: "elsie",
+    name: "ELSIE TOP",
+    price: 240000,
+    description:
+      "Nhẹ nhàng nhưng không hề mờ nhạt. Cổ thuyền khéo léo ôm trọn bờ vai tự nhiên, mang đến silhouette mềm mại và khí chất.",
+    images: [
+      "images/Elsie/Elsie_1.png",
+      "images/Elsie/Elsie_2.png",
+      "images/Elsie/Elsie_3.png",
+      "images/Elsie/Elsie_4.png",
+      "images/Elsie/Elsie_5.png",
+      "images/Elsie/Elsie_6.png"
+    ],
+    pairIndexes: [0, 1],
+    sizes: ["S", "M"]
+  },
+  farie: {
+    slug: "farie",
+    name: "FARIE TOP",
+    price: 250000,
+    description:
+      "Dành cho các cô gái yêu sự nữ tính cho mọi dịp. Thiết kế trễ vai tôn bờ vai thanh thoát, tạo nên silhouette mềm mại, và đầy tinh tế.",
+    images: [
+      "images/Farie/Farie_1.png",
+      "images/Farie/Farie_2.png",
+      "images/Farie/Farie_3.png",
+      "images/Farie/Farie_4.png",
+      "images/Farie/Farie_5.png",
+      "images/Farie/Farie_6.png"
+    ],
+    pairIndexes: [0, 1],
+    sizes: ["S", "M"]
+  },
+  julie: {
+    slug: "julie",
+    name: "JULIE TOP",
     price: 260000,
     description:
-      "Áo thun ngắn tay cổ tròn rộng, chất thun co dãn ôm sát vừa đủ — không quá tight fit mà vẫn tôn dáng. Dễ mix với jeans, chân váy hay layer trong blazer. Thiết kế nhét mút rời dễ mặc, hai lớp để tạo form chuẩn.",
+      "Nổi bật theo cách riêng. Thiết kế lệch vai giúp tổng thể trông có gu hơn và mang đến vẻ ngoài nữ tính mà tinh tế.",
     images: [
-      "../images/Fanie_top_1.jpeg",
-      "../images/Fanie_top_2.jpeg",
-      "../images/Fanie_top_3.jpeg",
-      "../images/Fanie_top_4.png"
+      "images/Julie/Julie_1.png",
+      "images/Julie/Julie_2.png",
+      "images/Julie/Julie_3.png",
+      "images/Julie/Julie_4.png",
+      "images/Julie/Julie_5.png",
+      "images/Julie/Julie_6.png",
+      "images/Julie/Julie_7.png",
+      "images/Julie/Julie_8.png"
     ],
-    pairIndexes: [1, 2],
+    pairIndexes: [0, 1],
     sizes: ["S", "M"]
   },
-  blanie: {
-    slug: "blanie",
-    name: "BLANIE TOP",
-    price: 300000,
+  lorie: {
+    // TODO: giá thật chưa chốt — đang để 0đ tạm thời
+    slug: "lorie",
+    name: "LORIE TOP",
+    price: 0,
     description:
-      "Áo ngắn tay khoét lưng, chất poly spandex tight fitting ôm trọn đường cong. Nữ tính, quyến rũ vừa đủ mà không over — đẹp nhất khi kết hợp quần cạp cao hoặc chân váy midi. Thiết kế nhét mút rời dễ mặc, hai lớp để tạo form chuẩn.",
+      "Dành cho những cô gái yêu vẻ đẹp của sự tối giản. Cổ lọ ôm nhẹ tạo nên silhouette gọn gàng và thanh thoát, được hoàn thiện trên chất vải thun gân ôm mượt theo cơ thể.",
     images: [
-      "../images/Blanie_top_1.png",
-      "../images/Blanie_top_2.png",
-      "../images/Blanie_top_3.png",
-      "../images/Blanie_top_4.png"
+      "images/Lorie/Lorie_1.png",
+      "images/Lorie/Lorie_2.png",
+      "images/Lorie/Lorie_3.png",
+      "images/Lorie/Lorie_4.png",
+      "images/Lorie/Lorie_5.png",
+      "images/Lorie/Lorie_6.png"
     ],
-    pairIndexes: [1, 2],
+    pairIndexes: [0, 1],
     sizes: ["S", "M"]
   },
-  sarie: {
-    slug: "sarie",
-    name: "SARIE TOP",
-    price: 230000,
+  rosie: {
+    // TODO: giá thật chưa chốt — đang để 0đ tạm thời
+    slug: "rosie",
+    name: "ROSIE TOP",
+    price: 0,
     description:
-      "Áo hai dây thun gân mềm, fit vừa đủ không quá ôm. Item essential nâng cấp mọi outfit — mặc trong Dorie, layer dưới blazer, hay diện solo ngày nắng đều gọn gàng. Thiết kế nhét mút rời dễ mặc, hai lớp để tạo form chuẩn.",
+      "Thiết kế đầy nữ tính. Một chút mềm mại khiến tổng thể trở nên cuốn hút hơn. Cổ U sâu khéo léo tôn phần cổ và xương quai xanh, chất thun gân ôm nhẹ tạo đường cong tự nhiên.",
     images: [
-      "../images/Sarie_top_1.png",
-      "../images/Sarie_top_2.png",
-      "../images/Sarie_top_3.png",
-      "../images/Sarie_top_4.png"
+      "images/Rosie/Rosie_1.png",
+      "images/Rosie/Rosie_2.png",
+      "images/Rosie/Rosie_3.png",
+      "images/Rosie/Rosie_4.png",
+      "images/Rosie/Rosie_5.png",
+      "images/Rosie/Rosie_6.png"
     ],
-    pairIndexes: [1, 2],
-    sizes: ["S", "M"]
-  },
-  babie: {
-    slug: "babie",
-    name: "BABIE TOP",
-    price: 280000,
-    description:
-      "Áo thun ngắn tay cổ rộng, vải co dãn mold theo body tự nhiên. Form ôm vừa phải, tôn dáng mà vẫn thoải mái suốt ngày. Thiết kế nhét mút rời dễ mặc, hai lớp để tạo form chuẩn.",
-    images: [
-      "../images/Babie_top_1.png",
-      "../images/Babie_top_2.png",
-      "../images/Babie_top_3.jpeg",
-      "../images/Babie_top_4.png"
-    ],
-    pairIndexes: [1, 2],
+    pairIndexes: [0, 1],
     sizes: ["S", "M"]
   }
 };
 
 function formatPrice(price) {
-  return `${Number(price).toLocaleString("en-US")}đ`;
+  const numericPrice = Number(price);
+  if (!numericPrice) return "Đang cập nhật";
+  return `${numericPrice.toLocaleString("en-US")}đ`;
 }
 
 function trackMetaEvent(eventName, parameters) {
@@ -153,7 +201,7 @@ function getOptimizedImageSources(source) {
   const fileName = source.split("/").pop();
   const baseName = fileName.replace(/\.[^.]+$/, "");
   const version = OPTIMIZED_IMAGE_VERSIONS[baseName];
-  const optimizedBase = `../images/optimized/${baseName}${version ? `-${version}` : ""}`;
+  const optimizedBase = `images/optimized/${baseName}${version ? `-${version}` : ""}`;
 
   return {
     mobile: `${optimizedBase}-960.webp`,
@@ -502,7 +550,7 @@ function renderProductDetail() {
   if (!detailPage) return;
 
   const params = new URLSearchParams(window.location.search);
-  const product = JAUNE_PRODUCTS[params.get("product")] || JAUNE_PRODUCTS.dorie;
+  const product = JAUNE_PRODUCTS[params.get("product")] || JAUNE_PRODUCTS.blanie;
   const pairIndexes = product.pairIndexes || [1, 2];
   let selectedSize = product.sizes[0];
 

@@ -523,34 +523,6 @@ a {
   max-width: none;
 }
 
-@media (min-width: 768px) {
-  .detail-gallery[data-product="fanie"] {
-    padding: 16px;
-    background: var(--color-surface);
-  }
-
-  .detail-gallery[data-product="fanie"] .detail-half-row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
-
-  .detail-gallery[data-product="fanie"] .detail-image-block.half {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 4;
-    overflow: hidden;
-  }
-
-  .detail-gallery[data-product="fanie"] .detail-image-block.half .media-image {
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    object-fit: cover;
-    object-position: center top;
-  }
-}
-
 .detail-info {
   max-width: 660px;
   padding: 88px 0 72px;

@@ -24,20 +24,22 @@
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap"></noscript>
     <script>
       (() => {
-        const product = new URLSearchParams(window.location.search).get("product") || "dorie";
+        const product = new URLSearchParams(window.location.search).get("product") || "blanie";
         const firstImages = {
-          dorie: "Dorie_top_1",
-          fanie: "Fanie_top_1",
-          blanie: "Blanie_top_1",
-          sarie: "Sarie_top_1",
-          babie: "Babie_top_1-20260621"
+          blanie: "Blanie_1",
+          ellie: "Ellie_1",
+          elsie: "Elsie_1",
+          farie: "Farie_1",
+          julie: "Julie_1",
+          lorie: "Lorie_1",
+          rosie: "Rosie_1"
         };
-        const imageName = firstImages[product] || firstImages.dorie;
+        const imageName = firstImages[product] || firstImages.blanie;
         const preload = document.createElement("link");
         preload.rel = "preload";
         preload.as = "image";
-        preload.href = `../images/optimized/${imageName}-960.webp`;
-        preload.setAttribute("imagesrcset", `../images/optimized/${imageName}-960.webp 960w, ../images/optimized/${imageName}-1440.webp 1440w`);
+        preload.href = `images/optimized/${imageName}-960.webp`;
+        preload.setAttribute("imagesrcset", `images/optimized/${imageName}-960.webp 960w, images/optimized/${imageName}-1440.webp 1440w`);
         preload.setAttribute("imagesizes", "(max-width: 767px) calc(100vw - 48px), 680px");
         preload.setAttribute("fetchpriority", "high");
         document.head.appendChild(preload);
