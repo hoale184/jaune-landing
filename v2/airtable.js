@@ -703,6 +703,18 @@ function renderProductDetail() {
   };
 }
 
+const detailBackLink = document.querySelector(".detail-back");
+if (detailBackLink) {
+  detailBackLink.addEventListener("click", (event) => {
+    const sameOriginReferrer =
+      document.referrer && new URL(document.referrer).origin === window.location.origin;
+    if (sameOriginReferrer && window.history.length > 1) {
+      event.preventDefault();
+      window.history.back();
+    }
+  });
+}
+
 renderProductDetail();
 processInterestQueue();
 window.addEventListener("online", processInterestQueue);

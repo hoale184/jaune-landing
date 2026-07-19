@@ -316,5 +316,43 @@
         });
       })();
     </script>
+    <script>
+      (() => {
+        const STORAGE_KEY = "jaune-v2-last-viewed-item";
+        const productRow = document.querySelector(".v2-product-row");
+        if (!productRow) return;
+
+        function readLastViewedSlug() {
+          try {
+            return sessionStorage.getItem(STORAGE_KEY);
+          } catch {
+            return null;
+          }
+        }
+
+        function writeLastViewedSlug(slug) {
+          try {
+            sessionStorage.setItem(STORAGE_KEY, slug);
+          } catch {
+            // ignore storage errors (e.g. private browsing)
+          }
+        }
+
+        productRow.querySelectorAll(".v2-product-card").forEach((card) => {
+          card.addEventListener("click", () => {
+            const slug = new URL(card.href).searchParams.get("product");
+            if (slug) writeLastViewedSlug(slug);
+          });
+        });
+
+        const lastViewedSlug = readLastViewedSlug();
+        if (!lastViewedSlug) return;
+
+        const targetCard = productRow.querySelector(`a[href*="product=${lastViewedSlug}"]`);
+        if (targetCard) {
+          targetCard.scrollIntoView({ inline: "center", block: "nearest", behavior: "instant" });
+        }
+      })();
+    </script>
   </body>
 </html>
