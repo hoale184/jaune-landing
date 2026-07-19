@@ -16,6 +16,7 @@
   --color-dark: #070D0D;
   --color-dark-hover: #1B2224;
   --color-muted-2: #6A6A6A;
+  --color-beige: #F3E8DA;
 }
 
 * {
@@ -301,7 +302,7 @@ a {
   display: block;
   width: 100%;
   margin-bottom: 28px;
-  background: var(--color-surface);
+  background: var(--color-beige);
   color: var(--color-text);
   padding: 18px 20px;
   font-family: "Quicksand", sans-serif;
@@ -588,7 +589,15 @@ a {
 .detail-sizes {
   display: flex;
   gap: 10px;
-  margin-bottom: 28px;
+  margin-bottom: 10px;
+}
+
+.detail-size-guide {
+  margin: 0 0 28px;
+  color: var(--color-text-subtle);
+  font-family: "Quicksand", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .detail-size-btn {
@@ -638,7 +647,8 @@ a {
 }
 
 .detail-badge svg,
-.detail-cta svg {
+.detail-cta svg,
+.detail-voucher svg {
   width: 18px;
   height: 18px;
   fill: none;
@@ -646,6 +656,31 @@ a {
   stroke-linecap: square;
   stroke-linejoin: miter;
   stroke-width: 1.8;
+}
+
+.detail-voucher {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 14px 18px;
+  background: var(--v2-pink, #F5CBD7);
+  color: var(--color-text);
+  font-family: "Quicksand", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.detail-voucher svg {
+  flex: none;
+  fill: var(--color-text);
+  stroke: none;
+}
+
+.detail-voucher strong {
+  font-weight: 700;
 }
 
 .detail-cta {

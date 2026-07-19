@@ -10,6 +10,10 @@ const INTEREST_QUEUE_MAX_ITEMS = 50;
 const INTEREST_QUEUE_BASE_DELAY_MS = 5000;
 const INTEREST_QUEUE_MAX_DELAY_MS = 5 * 60 * 1000;
 const OPTIMIZED_IMAGE_VERSIONS = {};
+const SIZE_GUIDE = {
+  S: "Size S — V1 <86, V2 <70",
+  M: "Size M — V1 <90, V2 <75"
+};
 const JAUNE_PRODUCTS = {
   blanie: {
     slug: "blanie",
@@ -632,6 +636,7 @@ function renderProductDetail() {
   window.addEventListener("resize", galleryResizeHandler);
 
   const sizeList = document.getElementById("detail-sizes");
+  const sizeGuide = document.getElementById("detail-size-guide");
   sizeList.innerHTML = "";
   product.sizes.forEach((size, index) => {
     const button = document.createElement("button");
@@ -647,9 +652,11 @@ function renderProductDetail() {
       });
       button.classList.add("active");
       button.setAttribute("aria-pressed", "true");
+      if (sizeGuide) sizeGuide.textContent = SIZE_GUIDE[size] || "";
     });
     sizeList.appendChild(button);
   });
+  if (sizeGuide) sizeGuide.textContent = SIZE_GUIDE[selectedSize] || "";
 
   document.getElementById("detail-cta").onclick = () => {
     openNotifyModal(product.name, product.price, selectedSize, product.slug);
