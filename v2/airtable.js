@@ -18,7 +18,7 @@ const JAUNE_PRODUCTS = {
   blanie: {
     slug: "blanie",
     name: "BLANIE TOP",
-    price: 230000,
+    price: 245000,
     description:
       "Dịu dàng trong từng đường cắt. Cổ thuyền trải nhẹ qua bờ vai, tạo cảm giác thanh thoát và nữ tính với phom ôm gọn tự nhiên.",
     images: [
@@ -35,9 +35,9 @@ const JAUNE_PRODUCTS = {
   ellie: {
     slug: "ellie",
     name: "ELLIE TOP",
-    price: 220000,
+    price: 230000,
     description:
-      "Đơn giản nhưng luôn để lại ấn tượng. Đường cắt gọn mở nhẹ phần vai, kết hợp chất thun ôm vừa đủ để tôn dáng tự nhiên, khỏe khoắn mà vẫn đầy nữ tính.",
+      "Đơn giản nhưng ấn tượng. Đường cắt gọn phối cùng chất thun co dãn, ôm trọn đường cong tự nhiên đầy nữ tính. Đặc biệt tích hợp mút ngực may sẵn tiện lợi.",
     images: [
       "images/Ellie/Ellie_1.png",
       "images/Ellie/Ellie_2.png",
@@ -53,7 +53,7 @@ const JAUNE_PRODUCTS = {
   elsie: {
     slug: "elsie",
     name: "ELSIE TOP",
-    price: 240000,
+    price: 270000,
     description:
       "Nhẹ nhàng nhưng không hề mờ nhạt. Cổ thuyền khéo léo ôm trọn bờ vai tự nhiên, mang đến silhouette mềm mại và khí chất.",
     images: [
@@ -70,9 +70,9 @@ const JAUNE_PRODUCTS = {
   farie: {
     slug: "farie",
     name: "FARIE TOP",
-    price: 250000,
+    price: 270000,
     description:
-      "Dành cho các cô gái yêu sự nữ tính cho mọi dịp. Thiết kế trễ vai tôn bờ vai thanh thoát, tạo nên silhouette mềm mại, và đầy tinh tế.",
+      "Dành cho các cô gái yêu sự nữ tính cho mọi dịp. Thiết kế trễ vai tôn bờ vai thanh thoát, tạo nên silhouette mềm mại, và đầy tinh tế. Tích hợp mút ngực may sẵn tiện lợi.",
     images: [
       "images/Farie/Farie_1.png",
       "images/Farie/Farie_2.png",
@@ -89,7 +89,7 @@ const JAUNE_PRODUCTS = {
     name: "JULIE TOP",
     price: 260000,
     description:
-      "Nổi bật theo cách riêng. Thiết kế lệch vai giúp tổng thể trông có gu hơn và mang đến vẻ ngoài nữ tính mà tinh tế.",
+      "Nổi bật theo cách riêng. Thiết kế lệch vai giúp tổng thể trông có gu hơn và mang đến vẻ ngoài nữ tính mà tinh tế. Tích hợp mút ngực may sẵn tiện lợi.",
     images: [
       "images/Julie/Julie_1.png",
       "images/Julie/Julie_2.png",
@@ -104,10 +104,9 @@ const JAUNE_PRODUCTS = {
     sizes: ["S", "M"]
   },
   lorie: {
-    // TODO: giá thật chưa chốt — đang để 0đ tạm thời
     slug: "lorie",
     name: "LORIE TOP",
-    price: 0,
+    price: 245000,
     description:
       "Dành cho những cô gái yêu vẻ đẹp của sự tối giản. Cổ lọ ôm nhẹ tạo nên silhouette gọn gàng và thanh thoát, được hoàn thiện trên chất vải thun gân ôm mượt theo cơ thể.",
     images: [
@@ -122,10 +121,9 @@ const JAUNE_PRODUCTS = {
     sizes: ["S", "M"]
   },
   rosie: {
-    // TODO: giá thật chưa chốt — đang để 0đ tạm thời
     slug: "rosie",
     name: "ROSIE TOP",
-    price: 0,
+    price: 260000,
     description:
       "Thiết kế đầy nữ tính. Một chút mềm mại khiến tổng thể trở nên cuốn hút hơn. Cổ U sâu khéo léo tôn phần cổ và xương quai xanh, chất thun gân ôm nhẹ tạo đường cong tự nhiên.",
     images: [
