@@ -1,5 +1,6 @@
 let countdownTimer = null;
 let galleryResizeHandler = null;
+let galleryScrollHandler = null;
 let interestQueueProcessing = false;
 let interestQueueTimer = null;
 const trackedProductViews = new Set();
@@ -632,6 +633,47 @@ function renderProductDetail() {
   }
   galleryResizeHandler = updateGallerySizing;
   window.addEventListener("resize", galleryResizeHandler);
+
+  const dotsContainer = document.getElementById("detail-gallery-dots");
+  if (dotsContainer) {
+    dotsContainer.innerHTML = "";
+    const slides = Array.from(gallery.querySelectorAll(".detail-image-block"));
+    slides.forEach((slide, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = `detail-gallery-dot${index === 0 ? " active" : ""}`;
+      dot.setAttribute("aria-label", `Ảnh ${index + 1}/${slides.length}`);
+      dot.addEventListener("click", () => {
+        slide.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      });
+      dotsContainer.appendChild(dot);
+    });
+
+    if (galleryScrollHandler) {
+      gallery.removeEventListener("scroll", galleryScrollHandler);
+    }
+    let scrollFrame = null;
+    galleryScrollHandler = () => {
+      if (scrollFrame) return;
+      scrollFrame = requestAnimationFrame(() => {
+        scrollFrame = null;
+        const galleryLeft = gallery.getBoundingClientRect().left;
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+        slides.forEach((slide, index) => {
+          const distance = Math.abs(slide.getBoundingClientRect().left - galleryLeft);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+          }
+        });
+        dotsContainer.querySelectorAll(".detail-gallery-dot").forEach((dot, index) => {
+          dot.classList.toggle("active", index === closestIndex);
+        });
+      });
+    };
+    gallery.addEventListener("scroll", galleryScrollHandler);
+  }
 
   const sizeList = document.getElementById("detail-sizes");
   const sizeGuide = document.getElementById("detail-size-guide");
