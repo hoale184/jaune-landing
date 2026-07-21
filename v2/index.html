@@ -163,7 +163,7 @@
             </svg>
           </button>
 
-          <button type="button" class="v2-notify-submit" id="submit-btn" disabled>Hoàn tất</button>
+          <button type="button" class="v2-notify-submit" id="submit-btn">Đăng ký nhận thông báo</button>
 
           <p class="v2-notify-privacy">JAUNE cam kết sẽ không chia sẻ thông tin của bạn</p>
         </form>
@@ -314,6 +314,8 @@
           submitButton.disabled = false;
           closeItemModal();
         });
+
+        window.openItemModal = openItemModal;
       })();
     </script>
     <script>

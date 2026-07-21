@@ -28,7 +28,9 @@ const JAUNE_PRODUCTS = {
       "images/Blanie/Blanie_3.png",
       "images/Blanie/Blanie_4.png",
       "images/Blanie/Blanie_5.png",
-      "images/Blanie/Blanie_6.png"
+      "images/Blanie/Blanie_6.png",
+      "images/Blanie/Blanie_7.png",
+      "images/Blanie/Blanie_8.png"
     ],
     pairIndexes: [0, 1],
     sizes: ["S", "M"]
@@ -507,6 +509,11 @@ if (emailField && notifyForm && submitButton) {
 
   submitButton.addEventListener("click", function () {
     if (submitButton.disabled) return;
+
+    if (!notifyForm.dataset.product || !notifyForm.dataset.productSlug) {
+      if (typeof window.openItemModal === "function") window.openItemModal();
+      return;
+    }
 
     if (!validateEmailField()) {
       emailField.focus();
