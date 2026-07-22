@@ -488,6 +488,8 @@ if (successModalEl) {
 }
 
 if (emailField && notifyForm && submitButton) {
+  const defaultSubmitButtonText = submitButton.textContent;
+
   emailField.addEventListener("invalid", (event) => {
     event.preventDefault();
     validateEmailField();
@@ -546,6 +548,9 @@ if (emailField && notifyForm && submitButton) {
     });
     openSuccessModal();
     processInterestQueue();
+
+    button.disabled = false;
+    button.textContent = defaultSubmitButtonText;
   });
 }
 
