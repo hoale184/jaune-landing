@@ -467,6 +467,23 @@ function openSuccessModal() {
 function closeSuccessModal() {
   clearTimeout(countdownTimer);
   document.getElementById("success-modal").classList.remove("active");
+
+  const homepageForm = document.getElementById("notify-form");
+  const itemTrigger = document.getElementById("v2-field-item-trigger");
+  const itemTriggerLabel = document.getElementById("v2-field-item-label");
+
+  if (homepageForm && itemTrigger && itemTriggerLabel) {
+    homepageForm.reset();
+    delete homepageForm.dataset.product;
+    delete homepageForm.dataset.productSlug;
+    delete homepageForm.dataset.price;
+    itemTrigger.classList.remove("has-value");
+    itemTriggerLabel.textContent = "Chọn item";
+    setEmailError();
+
+    const submitBtn = document.getElementById("submit-btn");
+    if (submitBtn) submitBtn.disabled = false;
+  }
 }
 
 const notifyModalEl = document.getElementById("notify-modal");
