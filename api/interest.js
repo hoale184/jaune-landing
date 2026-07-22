@@ -24,6 +24,30 @@ const PRODUCT_ITEM_RECORDS = {
   "BABIE TOP": {
     S: "reca5Z6WYbOQY4fdc",
     M: "recYPQav7g9zVPuEb"
+  },
+  "ELLIE TOP": {
+    S: "recl80kLsQf4Ck28s",
+    M: "recJRavdCF5lgfkPt"
+  },
+  "ELSIE TOP": {
+    S: "recJ5gotceeFEe5Nk",
+    M: "recJuosNL3AEippiQ"
+  },
+  "FARIE TOP": {
+    S: "recvtPqjHrl4fV42t",
+    M: "recLzlIY2CD8tvU9E"
+  },
+  "JULIE TOP": {
+    S: "recr4syq9Csi5IHjc",
+    M: "rec8M8lJn50om43X2"
+  },
+  "LORIE TOP": {
+    S: "recMVQqedfnRCMMDR",
+    M: "rec8G3UKo8GCfv1BX"
+  },
+  "ROSIE TOP": {
+    S: "recHfk23CMfyGqawu",
+    M: "rec1k942FzemcMve4"
   }
 };
 
