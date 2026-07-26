@@ -90,7 +90,7 @@ const JAUNE_PRODUCTS = {
   julie: {
     slug: "julie",
     name: "JULIE TOP",
-    price: 260000,
+    price: 270000,
     description:
       "Nổi bật theo cách riêng. Thiết kế lệch vai giúp tổng thể trông có gu hơn và mang đến vẻ ngoài nữ tính mà tinh tế. Tích hợp mút ngực may sẵn tiện lợi.",
     images: [
@@ -126,7 +126,7 @@ const JAUNE_PRODUCTS = {
   rosie: {
     slug: "rosie",
     name: "ROSIE TOP",
-    price: 260000,
+    price: 265000,
     description:
       "Thiết kế đầy nữ tính. Một chút mềm mại khiến tổng thể trở nên cuốn hút hơn. Cổ U sâu khéo léo tôn phần cổ và xương quai xanh, chất thun gân ôm nhẹ tạo đường cong tự nhiên.",
     images: [
