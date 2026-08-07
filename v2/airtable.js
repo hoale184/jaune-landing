@@ -19,7 +19,7 @@ const JAUNE_PRODUCTS = {
   blanie: {
     slug: "blanie",
     name: "BLANIE TOP",
-    price: 245000,
+    price: 230000,
     description:
       "Dịu dàng trong từng đường cắt. Cổ thuyền trải nhẹ qua bờ vai, tạo cảm giác thanh thoát và nữ tính với phom ôm gọn tự nhiên.",
     images: [
@@ -38,7 +38,7 @@ const JAUNE_PRODUCTS = {
   ellie: {
     slug: "ellie",
     name: "ELLIE TOP",
-    price: 230000,
+    price: 210000,
     description:
       "Đơn giản nhưng ấn tượng. Đường cắt gọn phối cùng chất thun co dãn, ôm trọn đường cong tự nhiên đầy nữ tính. Đặc biệt tích hợp mút ngực may sẵn tiện lợi.",
     images: [
@@ -56,7 +56,7 @@ const JAUNE_PRODUCTS = {
   elsie: {
     slug: "elsie",
     name: "ELSIE TOP",
-    price: 270000,
+    price: 250000,
     description:
       "Nhẹ nhàng nhưng không hề mờ nhạt. Cổ thuyền khéo léo ôm trọn bờ vai tự nhiên, mang đến silhouette mềm mại và khí chất.",
     images: [
@@ -73,7 +73,7 @@ const JAUNE_PRODUCTS = {
   farie: {
     slug: "farie",
     name: "FARIE TOP",
-    price: 270000,
+    price: 250000,
     description:
       "Dành cho các cô gái yêu sự nữ tính cho mọi dịp. Thiết kế trễ vai tôn bờ vai thanh thoát, tạo nên silhouette mềm mại, và đầy tinh tế. Tích hợp mút ngực may sẵn tiện lợi.",
     images: [
@@ -90,7 +90,7 @@ const JAUNE_PRODUCTS = {
   julie: {
     slug: "julie",
     name: "JULIE TOP",
-    price: 270000,
+    price: 240000,
     description:
       "Nổi bật theo cách riêng. Thiết kế lệch vai giúp tổng thể trông có gu hơn và mang đến vẻ ngoài nữ tính mà tinh tế. Tích hợp mút ngực may sẵn tiện lợi.",
     images: [
@@ -109,7 +109,7 @@ const JAUNE_PRODUCTS = {
   lorie: {
     slug: "lorie",
     name: "LORIE TOP",
-    price: 245000,
+    price: 240000,
     description:
       "Dành cho những cô gái yêu vẻ đẹp của sự tối giản. Cổ lọ ôm nhẹ tạo nên silhouette gọn gàng và thanh thoát, được hoàn thiện trên chất vải thun gân ôm mượt theo cơ thể.",
     images: [
@@ -126,7 +126,7 @@ const JAUNE_PRODUCTS = {
   rosie: {
     slug: "rosie",
     name: "ROSIE TOP",
-    price: 265000,
+    price: 230000,
     description:
       "Thiết kế đầy nữ tính. Một chút mềm mại khiến tổng thể trở nên cuốn hút hơn. Cổ U sâu khéo léo tôn phần cổ và xương quai xanh, chất thun gân ôm nhẹ tạo đường cong tự nhiên.",
     images: [
